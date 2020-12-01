@@ -17,6 +17,9 @@ public class DuplicateNumberInArray {
     // 1. 先将数组排序，然后扫描
     //  时间：O(nlogn)   空间：O(1)
     public static int findDuplicateNumber1(int[] array) {
+        if (array == null || array.length == 0) {
+            return -1;
+        }
         Arrays.sort(array);
         int pre = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -31,6 +34,9 @@ public class DuplicateNumberInArray {
     //    如果在hash表中，说明之前已经出现过这个数，可以直接返回
     // 时间：O(n)  空间：O(n)
     public static int findDuplicateNumber2(int[] array) {
+        if (array == null || array.length == 0) {
+            return -1;
+        }
         int n = array.length;
         int[] map = new int[n];
         for (int value : array) {
@@ -51,6 +57,9 @@ public class DuplicateNumberInArray {
 
     // 时间：O(n)  空间：O(1)
     public static int findDuplicateNumber3(int[] array) {
+        if (array == null || array.length == 0) {
+            return -1;
+        }
         for (int i=0; i < array.length; ) {
             if (i == array[i]) {
                 i++;
