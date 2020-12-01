@@ -45,8 +45,11 @@ public class DuplicateNumberInArray {
 
     // 3. 考虑到数组数字在0~n-1的范围内，如果数组中没有重复数字的话，
     //    重新排序，那么数字i就应该在下标i处
+    // 我们遍历扫描数组，当扫描到下标为 i 的数字时，首先比较 array[i] 是否等于 i
+    // 如果相等则继续下一个数字，否则判断 array[i] 是否等于 array[array[i]]，如果相等，则找到一个重复数字
+    // 否者 下标为 i 的数字和下标为 array[i] 的数字 交换
 
-    // 时间：O(n)  空间：O(
+    // 时间：O(n)  空间：O(1)
     public static int findDuplicateNumber3(int[] array) {
         for (int i=0; i < array.length; ) {
             if (i == array[i]) {
