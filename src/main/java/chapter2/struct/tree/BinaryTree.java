@@ -56,14 +56,48 @@ public class BinaryTree<T> {
     // 2. 没有右子节点，并且是父节点的左子节点，那么下一个节点就是父节点
     // 3. 没有右子节点，并且是父节点的右子节点，那么就要沿着父节点向上遍历，直到找到一个是它父节点的左子节点的节点
     // 我们需要在节点中增加一个指向父节点的指针
-    public BinaryTreeNode<Integer> getNext(BinaryTreeNode<Integer> node) {
-        return null;
+    public BinaryTreeNode<T> getNext(BinaryTreeNode<T> node) {
+        if (node == null) {
+            return null;
+        } else if (node.right != null) {
+            BinaryTreeNode<T> rightnode = node.right;
+            while (rightnode.left != null) {
+                rightnode = rightnode.left;
+            }
+            return rightnode;
+        } else {
+            BinaryTreeNode<T> parent = node.parent;
+            while (parent != null && parent.right == node) {
+                parent = parent.parent;
+            }
+            return parent;
+        }
+    }
+
+    public BinaryTreeNode<T> getNode(T node) {
+        if (node == null) {
+            return null;
+        }
+       return getNode(root, node);
+    }
+
+    private BinaryTreeNode<T> getNode(BinaryTreeNode<T> node, T value) {
+        if (node == null) return null;
+        if (node.value == value) {
+            return node;
+        }
+        BinaryTreeNode<T> left = getNode(node.left, value);
+        if (left != null && left.value == value) {
+            return left;
+        }
+        return getNode(node.right, value);
     }
 
     public static void main(String[] args) throws Exception {
         int[] pre = {1,2,4,7,3,5,6,8};
         int[] in = {4,7,2,1,5,3,8,6};
         BinaryTree<Integer> binaryTree = BinaryTree.constructFromPreorderAndInorder(pre, in);
-        System.out.println(1);
+        BinaryTreeNode<Integer> node = binaryTree.getNext(binaryTree.getNode(4));
+        System.out.println(node.value);
     }
 }
