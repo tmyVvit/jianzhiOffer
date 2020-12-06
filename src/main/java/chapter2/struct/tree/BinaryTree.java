@@ -1,32 +1,29 @@
 package chapter2.struct.tree;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class BinaryTree {
-    private BinaryTreeNode root;
-    static class BinaryTreeNode {
-        int value;
-        BinaryTreeNode left;
-        BinaryTreeNode right;
+public class BinaryTree<T> {
+    private BinaryTreeNode<T> root;
+    static class BinaryTreeNode<T> {
+        T value;
+        BinaryTreeNode<T> left;
+        BinaryTreeNode<T> right;
     }
 
     // 假设中序遍历和前序遍历中都不含重复元素
-    public static BinaryTree constructFromPreorderAndInorder(int[] preorder, int[] inorder) throws Exception {
+    public static BinaryTree<Integer> constructFromPreorderAndInorder(int[] preorder, int[] inorder) throws Exception {
         if (preorder == null || inorder == null || preorder.length != inorder.length || preorder.length == 0) {
             throw new Exception("invalid input");
         }
-        BinaryTreeNode rootNode = constructFromPreAndInCore(preorder, 0, inorder, 0, preorder.length);
-        BinaryTree binaryTree = new BinaryTree();
+        BinaryTreeNode<Integer> rootNode = constructFromPreAndInCore(preorder, 0, inorder, 0, preorder.length);
+        BinaryTree<Integer> binaryTree = new BinaryTree<Integer>();
         binaryTree.root = rootNode;
         return binaryTree;
     }
 
-    private static BinaryTreeNode constructFromPreAndInCore(int[] preorder, int prestart, int[] inorder, int instart, int length) throws Exception {
+    private static BinaryTreeNode<Integer> constructFromPreAndInCore(int[] preorder, int prestart, int[] inorder, int instart, int length) throws Exception {
         if (length <= 0) {
             return null;
         }
-        BinaryTreeNode node = new BinaryTreeNode();
+        BinaryTreeNode<Integer> node = new BinaryTreeNode<Integer>();
         node.value = preorder[prestart];
         int i = 0;
         // 在中序遍历中找到根节点
@@ -47,7 +44,7 @@ public class BinaryTree {
     public static void main(String[] args) throws Exception {
         int[] pre = {1,2,4,7,3,5,6,8};
         int[] in = {4,7,2,1,5,3,8,6};
-        BinaryTree binaryTree = BinaryTree.constructFromPreorderAndInorder(pre, in);
+        BinaryTree<Integer> binaryTree = BinaryTree.constructFromPreorderAndInorder(pre, in);
         System.out.println(1);
     }
 }
