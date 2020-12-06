@@ -6,8 +6,10 @@ public class BinaryTree<T> {
         T value;
         BinaryTreeNode<T> left;
         BinaryTreeNode<T> right;
+        BinaryTreeNode<T> parent;
     }
 
+    // 面试题 7
     // 假设中序遍历和前序遍历中都不含重复元素
     public static BinaryTree<Integer> constructFromPreorderAndInorder(int[] preorder, int[] inorder) throws Exception {
         if (preorder == null || inorder == null || preorder.length != inorder.length || preorder.length == 0) {
@@ -25,6 +27,7 @@ public class BinaryTree<T> {
         }
         BinaryTreeNode<Integer> node = new BinaryTreeNode<Integer>();
         node.value = preorder[prestart];
+        node.parent = null;
         int i = 0;
         // 在中序遍历中找到根节点
         for (; i < length; i++) {
@@ -38,7 +41,23 @@ public class BinaryTree<T> {
         }
         node.left = constructFromPreAndInCore(preorder, prestart + 1, inorder, instart, i);
         node.right = constructFromPreAndInCore(preorder, prestart + 1 + i, inorder, instart + i + 1, length - i - 1);
+        if (node.left != null) {
+            node.left.parent = node;
+        }
+        if (node.right != null) {
+            node.right.parent = node;
+        }
         return node;
+    }
+
+    // 面试题 8
+    // 给定一个二叉树和其中的一个节点，找到中序遍历中该节点的下一个节点
+    // 1. 该节点有右子节点，那么它的下一个节点就是右子节点的最左子节点
+    // 2. 没有右子节点，并且是父节点的左子节点，那么下一个节点就是父节点
+    // 3. 没有右子节点，并且是父节点的右子节点，那么就要沿着父节点向上遍历，直到找到一个是它父节点的左子节点的节点
+    // 我们需要在节点中增加一个指向父节点的指针
+    public BinaryTreeNode<Integer> getNext(BinaryTreeNode<Integer> node) {
+        return null;
     }
 
     public static void main(String[] args) throws Exception {
