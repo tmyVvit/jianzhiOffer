@@ -1,4 +1,4 @@
-package chapter2;
+package chapter2.struct.array;
 
 /**
  * 在长度为 n+1 的数组中，所有数字在 1 ～ n 的范围内，所以数组中至少有一个数字时重复的
